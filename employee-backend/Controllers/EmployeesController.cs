@@ -24,7 +24,7 @@ namespace employee_backend.Controllers
             return await _employeeRepository.GetAll();
         }
 
-        [HttpGet("/LastName/{searchName}")]
+        [HttpGet("searchLastName/{searchName}")]
         public async Task<IEnumerable<EmployeeModel>> SearchForLastName(string searchName)
         {
             return await _employeeRepository.SearchForLastName(searchName);
