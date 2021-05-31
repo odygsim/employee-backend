@@ -9,7 +9,7 @@ namespace employee_backend.Repositories
     public interface IEmployeeRepository
     {
         Task<IEnumerable<EmployeeModel>> GetAll();
-        Task<IEnumerable<EmployeeModel>> SearchForLastName();
+        Task<IEnumerable<EmployeeModel>> SearchForLastName(string searchTerm);
         Task<EmployeeModel> Get(int Id);
         Task Update(EmployeeModel employee);
         Task Delete(int Id);

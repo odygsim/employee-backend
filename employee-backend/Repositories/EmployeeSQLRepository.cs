@@ -42,9 +42,13 @@ namespace employee_backend.Repositories
             return await _context.Employees.ToListAsync();
         }
 
-        public Task<IEnumerable<EmployeeModel>> SearchForLastName()
+        public async Task<IEnumerable<EmployeeModel>> SearchForLastName(string searchTerm)
         {
-            throw new NotImplementedException();
+            var employees = from e in _context.Employees
+                            where e.LastName.Contains(searchTerm)
+                            select e;
+
+            return await employees.ToListAsync();
         }
 
         public async Task Update(EmployeeModel employee)
