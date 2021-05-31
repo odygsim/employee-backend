@@ -1,7 +1,10 @@
+using employee_backend.Models;
+using employee_backend.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,6 +29,15 @@ namespace employee_backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Add employee context
+            // Adding db context pooling for default db (in configuration i.e. appsettings.json)
+            services.AddDbContextPool<EmployeeContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<EmployeeContext> (c => c.UseSqlServer("Data source=employees.db"));
+
+            // Inject SQL repository
+            services.AddScoped<IEmployeeRepository, EmployeeSQLRepository>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
